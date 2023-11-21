@@ -16,7 +16,19 @@ def client_recieve():
 
 def client_send():
     while True:
-        msg = f"{alias}: {input('')}"
+        inp = input("")
+        filename = ""
+        if("file:\\\\" in inp and ".txt" in inp):
+            filename = inp.split("file:\\\\")[1]
+        
+        try:
+            with open(filename, "r") as f:
+                inp = f.read()
+        except:
+            pass
+        
+        msg = f"{alias}: {inp}"
+
         client.send(msg.encode("utf-8"))
 
 alias = input("Your Name: ")
